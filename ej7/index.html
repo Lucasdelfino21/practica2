@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 7</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+    <main id="app">
+        <form>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre">
+            <br>
+            <label for="apellidos">Apellidos</label>
+            <input type="text" id="apellidos">
+            <br>
+            <label for="direccion">Direccion de envio</label>
+            <br>
+            <select id="direccion" v-model="direccion">
+                <option value="misma">Misma direccion</option>
+                <option value="nueva">Introducir nueva direccion</option>
+            </select>
+
+            <template v-if="direccion === 'nueva'">
+                <br>
+                <label for="nueva-direccion">Introducir nueva direccion</label>
+                <br>
+                <textarea id="nueva-direccion"></textarea>
+            </template>>
+            
+            <div>
+                <input type="checkbox" v-model="check"><span>He leido y acepto</span>
+            </div>
+
+            <input v-if="check === true" type="submit" value="enviar">
+            <p v-else>Se necesita marcar el checkbox</p>
+        </form>
+    </main>
+    
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                direccion: "misma",
+                check: false,
+            },
+        });
+        Vue.config.devtools = true;
+    </script>
+</body>
+</html>
