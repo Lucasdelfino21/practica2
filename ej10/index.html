@@ -5,10 +5,67 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio 10</title>
+    <style>
+        .user-info{
+            border: 10px solid;
+            padding: 2rem;
+            border-radius: 100px;
+            text-align: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        .logged-in{
+            background-color: green;
+        }
+
+        .logged-out{
+            background-color: red;
+        }
+
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    
+    <main id="app">
+        <span>Log in/Log out</span>
+        <input type="checkbox" v-model="logged">
+
+        <article class = "user-info" :class = "estilos">
+            {{ mensaje }}
+        </article>
+
+        <pre> {{ $data }} </pre>
+
+    </main>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                logged: true,
+                mensajes: {
+                    in: "Logeado como @Lucas.",
+                    out: "Deslogeado"
+                },
+                
+            },
+
+            computed:{
+                mensaje(){
+                    return this.logged ? this.mensajes.in : this.mensajes.out;
+                },
+
+                estilos(){
+                    return{
+                        'logged-in': this.logged,
+                        'logged-out': !this.logged,
+                    }
+                }
+            }
+
+        });
+
+    </script>
 </body>
 </html>

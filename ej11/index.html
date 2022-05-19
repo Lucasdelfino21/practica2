@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 11</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <style>
+        form {
+            font-family: sans-serif;
+        }
+
+        input:not([type="radio"]),
+        textarea,
+        label, 
+        select {
+            display: block;
+        }
+
+        label,
+        input[type="submit"] {
+            margin-top: 2px;
+            font-style: italic;
+        }
+
+        input,
+        textarea,
+        select {
+            min-width: 2px;
+            border: 1px solid green;
+        }
+
+        .invalido{
+            border: 1px solid red;
+        }
+
+    </style>
+</head>
+<body>
+    <main id="app">
+        <form>
+            <label for="nombre">Nombre</label>
+            <input type="text" required id="nombre" v-model="form.nombre" :class="{ invalido: !form.nombre }">
+            <label for="apellidos">Apellido</label>
+            <input type="text" required id="apellidos" v-model="form.apellidos" :class="{ invalido: !form.apellidos }">
+
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" required v-model="form.mensaje" :class="{ invalido: !form.mensaje }"></textarea>
+
+            <label for="">Hora de contacto</label>
+            <span>Mañana</span>
+            <input type="radio" value="mañana" v-model="form.contacto">
+            <span>Tarde</span>
+            <input type="radio" value="tarde" v-model="form.contacto">
+            <span>Noche</span>
+            <input type="radio" value="noche" v-model="form.contacto">
+
+            <label for="productos">Producto/s</label>
+            <select id="productos" v-model="form.productos" multiple>
+                <option value="producto1">Producto 1</option>
+                <option value="producto2">Producto 2</option>
+                <option value="producto3">Producto 3</option>
+            </select>
+
+            <label for="acepta">Aceptación de condiciones</label>
+            <span>Acepto los terminos y condiciones</span>
+            <input id="acepta" type="checkbox" v-model="form.acepta">
+            <input type="submit" value="Enviar" v-if="form.acepta">
+
+            <pre>{{ $data }}</pre>
+        </form>
+        <hr>
+    </main>
+    <script>
+        const vm = new Vue({
+            mounted() {
+                if (window.localStorage.getItem('form'))
+                    this.form = JSON.parse(window.localStorage.getItem('form'));
+            },
+
+            el: "#app",
+            data: {
+                form: {
+                    nombre: '',
+                    apellidos: '',
+                    mensaje: '',
+                    contacto: '',
+                    productos: '',
+                    acepta: false,
+                }
+            }
+        })
+
+        vm.$watch('form', (nuevo, antiguo) => {
+            window.localStorage.setItem('form', JSON.stringify(nuevo));
+        }, { deep: true} )
+
+        Vue.config.devtools = true;
+    </script>
+</body>
+</html>

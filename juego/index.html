@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Juego</title>
+</head>
+<body>
+    <div class="parent" id="app">
+        <div class="child">
+            <li v-for="usuario in usuarios">
+                <button class="button" v-on:click="guardar(usuario)"> {{usuario}} </button>
+            </li>
+        </div>
+
+        <div class="child">
+            <ul>
+                <li class="resultList" v-for="guardado in guardados"> {{guardado}} </li>
+            </ul>
+        </div>
+
+        <div class="child">
+            <h2>Errores: {{errores}} </h2>
+        </div>
+
+        <div>
+            <h1 :style="{color:color}" id="title">{{titulo}}</h1>
+            <button class="btnrestart" v-on:click="reiniciar">Reiniciar</button>
+        </div>
+    </div>
+    <script src="vue.js"></script>
+    <script src="main.js"></script>
+    
+</body>
+</html>
